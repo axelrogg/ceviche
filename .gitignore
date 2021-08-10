@@ -50,24 +50,7 @@ venv/
 ENV/
 
 # pycharm-related
-.idea/**/workspace.xml 
-.idea/**/tasks.xml 
-.idea/dictionaries 
-.idea/**/dataSources/ 
-.idea/**/dataSources.ids 
-.idea/**/dataSources.xml 
-.idea/**/dataSources.local.xml 
-.idea/**/sqlDataSources.xml 
-.idea/**/dynamic.xml 
-.idea/**/uiDesigner.xml 
-.idea/**/gradle.xml 
-.idea/**/libraries 
-*.iws /out/
+.idea
 
 # vscode-related
-.vscode/* 
-!.vscode/settings.json 
-!.vscode/tasks.json 
-!.vscode/launch.json 
-!.vscode/extensions.json 
-.history
+.vscode/
