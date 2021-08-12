@@ -1,0 +1,23 @@
+version: "3.9"
+services:
+  ceviche:
+    container_name: ceviche
+    environment:
+      - PROJECT_ENV=${PROJECT_ENV}
+    build: .
+    ports:
+      - "8000:8000"
+    command: poetry run python ./ceviche/main.py
+
+  ceviche_db:
+    depends_on:
+      - ceviche
+    container_name: ceviche_db
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PWRD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    ports:
+      - "8080:8080"
