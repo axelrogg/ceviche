@@ -1,0 +1,2 @@
+class MissingDatabaseDriver(Exception):
+    pass
