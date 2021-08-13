@@ -2,12 +2,13 @@ version: "3.9"
 services:
   ceviche:
     container_name: ceviche
+    build: .
     environment:
       - PROJECT_ENV=${PROJECT_ENV}
+      - POSTGRES_HOST=${POSTGRES_HOST}
       - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PWRD}
+      - POSTGRES_PWRD=${POSTGRES_PWRD}
       - POSTGRES_DB=${POSTGRES_DB}
-    build: .
     ports:
       - "8000:8000"
     command: poetry run python ./ceviche/main.py
