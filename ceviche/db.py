@@ -13,7 +13,8 @@ dbuser = getenv("POSTGRES_USER")
 ddriver = DDriver(client=DatabaseClient.postgresql, driver=DatabaseDriver.asyncpg)
 cred = DatabaseCredential(dbhost=dbhost, dbname=dbname, dbpwrd=dbpwrd, dbuser=dbuser)
 
-meta = MetaData()
+_meta = MetaData()
 
-db = Database(ddriver, cred, meta, tables=None, is_async=True)
-db_tables = db.show_tables()
+_db = Database(ddriver, cred, _meta, tables=None, is_async=True)
+db_engine = _db.gen_engine()
+db_tables = _db.show_tables()
