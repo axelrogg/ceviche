@@ -41,7 +41,7 @@ class Database:
             return self.tables
         return self.__reflect_db()
 
-    def gen_engine(self, override_url: Optional[DatabaseUrl] = None, is_async: bool = False, **kwargs) -> Engine:
+    def gen_engine(self, is_async: bool = False, override_url: Optional[DatabaseUrl] = None, **kwargs) -> Engine:
         url = override_url or self.__url
         engine = create_engine(url, **kwargs)
         if is_async:
@@ -57,7 +57,7 @@ class Database:
             # by mapping sync and async drivers to the corresponding client.
             tmp_url = self.__set_db_url(DatabaseDriver.psycopg2)
             # create a sync engine
-            engine = self.gen_engine(tmp_url)
+            engine = self.gen_engine(override_url=tmp_url)
         result = self.metadata.reflect(bind=engine)
         return dict(result)
 
