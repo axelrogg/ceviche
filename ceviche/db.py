@@ -17,7 +17,7 @@ dbuser = getenv("POSTGRES_USER")
 
 
 ddriver = DDriver(client=DatabaseClient.postgresql, driver=DatabaseDriver.asyncpg)
-cred = DatabaseCredentials(host=dbhost, name=dbname, pwrd=dbpwrd, user=dbuser)
+cred = DatabaseCredentials(host=dbhost, name=dbname, password=dbpwrd, user=dbuser)
 
 _meta = MetaData()
 

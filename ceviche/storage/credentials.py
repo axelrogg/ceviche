@@ -2,7 +2,7 @@ from pydantic import BaseModel
 
 
 class DatabaseCredentials(BaseModel):
-    host: str
-    name: str
-    pwrd: str
-    user: str
+    host:     str
+    name:     str
+    password: str
+    user:     str

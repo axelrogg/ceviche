@@ -26,7 +26,7 @@ class Database:
         self.is_async = is_async
         self.__dbname = credentials.name
         self.__dbhost = credentials.host
-        self.__dbpwrd = credentials.pwrd
+        self.__dbpwrd = credentials.password
         self.__dbuser = credentials.user
         self.__url = self.__set_db_url()
 
