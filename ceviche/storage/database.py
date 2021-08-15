@@ -8,6 +8,7 @@ from sqlalchemy.util._collections import FacadeDict           # noqa
 from ceviche.storage import DatabaseTables, DatabaseUrl
 from ceviche.storage.ddriver import DatabaseDriver, DDriver
 from ceviche.storage.credentials import DatabaseCredentials
+from ceviche.storage.check_driver_is_installed import check_driver_is_installed
 
 
 class Database:
@@ -61,6 +62,6 @@ class Database:
     def __set_db_url(self, override_driver: Optional[DatabaseDriver] = None) -> DatabaseUrl:
         client = self.ddriver.client
         driver = self.ddriver.driver
-        if override_driver:
+        if override_driver and check_driver_is_installed(override_driver.name):
             driver = override_driver.name
         return f"{client}+{driver}://{self.__dbuser}:{self.__dbpwrd}@{self.__dbhost}/{self.__dbname}"
