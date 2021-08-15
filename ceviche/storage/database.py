@@ -29,7 +29,7 @@ class Database:
         self.__dbhost = credentials.host
         self.__dbpwrd = credentials.password
         self.__dbuser = credentials.user
-        self.__url = self.__set_db_url()
+        self.__url = self.__set_url()
 
     def tables(self) -> Optional[DatabaseTables]:
         if self.tabls:
@@ -50,7 +50,7 @@ class Database:
         if self.is_async:
             # TODO: right now we generate a new url for a sync driver for postgresql.  This needs to be automatic
             # by mapping sync and async drivers to the corresponding client.
-            tmp_url = self.__set_db_url(DatabaseDriver.psycopg2)
+            tmp_url = self.__set_url(DatabaseDriver.psycopg2)
             # create a sync engine
             engine = self.engine(force_sync_engine=True, override_url=tmp_url)
         result = self.metadata.reflect(bind=engine)
@@ -59,7 +59,7 @@ class Database:
             return dict(result)
         return None
 
-    def __set_db_url(self, override_driver: Optional[DatabaseDriver] = None) -> DatabaseUrl:
+    def __set_url(self, override_driver: Optional[DatabaseDriver] = None) -> DatabaseUrl:
         client = self.ddriver.client
         driver = self.ddriver.driver
         if override_driver and check_driver_is_installed(override_driver.name):
