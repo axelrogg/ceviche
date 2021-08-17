@@ -1,1 +1,2 @@
-# Ceviche Authentication Service
+# Ceviche
+Authentication Service built in Python
