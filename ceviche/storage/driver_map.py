@@ -1,7 +1,7 @@
-from ceviche.storage.ddriver import DatabaseDriver
+from ceviche.storage.database import DatabaseDriver
 
 
-drivers_map = {
+driver_map = {
     "postgresql": {
         "async": [DatabaseDriver.asyncpg],
         "sync": [DatabaseDriver.psycopg2]
