@@ -1,12 +1,39 @@
+from enum import Enum
 from typing import Optional
 
+from pydantic import BaseModel
 from sqlalchemy import create_engine, MetaData
 from sqlalchemy.engine import Engine
 from sqlalchemy.ext.asyncio import create_async_engine
 
-from ceviche.storage import DatabaseTables, DatabaseUrl
-from ceviche.storage.ddriver import DDriver
-from ceviche.storage.credentials import DatabaseCredentials
+from ceviche.types import DatabaseTables, DatabaseUrl
+
+
+class DatabaseCredentials(BaseModel):
+    host:     str
+    name:     str
+    password: str
+    user:     str
+
+    class Config:
+        allow_mutation = False
+
+
+class DatabaseClient(str, Enum):
+    postgresql = "postgresql"
+
+
+class DatabaseDriver(str, Enum):
+    asyncpg = "asyncpg"
+    psycopg2 = "psycopg2"
+
+
+class DDriver(BaseModel):
+    client: DatabaseClient
+    driver: DatabaseDriver
+
+    class Config:
+        allow_mutation = False
 
 
 class Database:
