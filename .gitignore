@@ -43,7 +43,7 @@ coverage.xml
 .hypothesis/
 
 # environments
-.env
+*.env
 .venv
 env/
 venv/
