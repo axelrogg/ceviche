@@ -1,7 +1,7 @@
 from .mock_database import (
     Database,
     DatabaseClient,
-    DatabaseCredential,
+    DatabaseCredentials,
     DatabaseDriver,
     DB_HOST,
     DB_PWRD,
@@ -14,12 +14,12 @@ from .mock_database import (
 
 
 ddriver = DDriver(client=DatabaseClient.postgresql, driver=DatabaseDriver.asyncpg)
-cred = DatabaseCredential(dbhost=DB_HOST, dbname=MOCK_DB_NAME, dbpwrd=DB_PWRD, dbuser=DB_USER)
+cred = DatabaseCredentials(host=DB_HOST, name=MOCK_DB_NAME, pwrd=DB_PWRD, user=DB_USER)
 meta = MetaData()
 DB = Database(ddriver, cred, meta, is_async=True)
 
 
-class TestOperations(MockDatabase):
+class TestDatabaseOperations(MockDatabase):
 
     def test_db_create(self):
         pass

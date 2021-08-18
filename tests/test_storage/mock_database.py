@@ -7,7 +7,8 @@ from ceviche import (
     DatabaseClient,
     DatabaseCredentials,
     DatabaseDriver,
-    DDriver
+    DDriver,
+    get_default_tables,
 )
 
 
@@ -20,7 +21,7 @@ DDRIVER = DDriver(client=DatabaseClient.postgresql, driver=DatabaseDriver.psycop
 CRED = DatabaseCredentials(host=DB_HOST, name=DB_NAME, password=DB_PWRD, user=DB_USER)
 META = MetaData()
 DB = Database(DDRIVER, CRED, META)
-ENGINE = DB.engine()
+ENGINE = DB.engine(echo="debug", echo_pool="debug")
 
 MOCK_DB_NAME = "mock_database"
 
@@ -41,6 +42,14 @@ class MockDatabase(TestCase):
         # create mock database
         try:
             conn.execute(text(f"CREATE DATABASE {MOCK_DB_NAME}"))
+        except Exception as e:
+            print(e)
+
+        # create all tables
+        tables = get_default_tables(META)
+        try:
+            for table in tables.values():
+                table.create(ENGINE)
         except Exception as e:
             print(e)
 
