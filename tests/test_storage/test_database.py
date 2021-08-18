@@ -1,4 +1,4 @@
-from .mock_database import (
+from tests.test_storage.mock_database import (
     Database,
     DatabaseClient,
     DatabaseCredentials,
