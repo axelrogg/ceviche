@@ -1,5 +1,6 @@
 from sqlalchemy import Column, DateTime, MetaData, String, Table, Text, text
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.engine import Engine
 
 from ceviche.types import DatabaseTables
 
@@ -19,3 +20,12 @@ def get_default_tables(metadata: MetaData) -> DatabaseTables:
     }
 
     return tables
+
+
+def __get_autoloaded_database_tables(metadata: MetaData, engine: Engine) -> DatabaseTables:
+    default_tables = get_default_tables(metadata)
+    # override default tables by loaded tables.
+    default_tables["user_account"] = Table("user_account", metadata, autoload_with=engine)
+    # TODO: override more default tables.
+
+    return default_tables

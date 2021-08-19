@@ -7,6 +7,7 @@ from sqlalchemy.engine import Engine
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from ceviche.types import DatabaseTables, DatabaseUrl
+from ceviche.storage.models import __get_autoloaded_database_tables
 
 
 class DatabaseCredentials(BaseModel):
@@ -56,10 +57,11 @@ class Database:
         self.__dbuser = credentials.user
         self.__url = self.__set_url()
 
-    def tables(self) -> Optional[DatabaseTables]:
+    def tables(self, engine: Engine) -> Optional[DatabaseTables]:
         if self.tabls:
             return self.tabls
-        return None
+        autoloaded_tables = __get_autoloaded_database_tables(self.metadata, engine)
+        return autoloaded_tables
 
     def engine(self, **kwargs) -> Engine:
         engine = create_engine(self.__url, **kwargs)
